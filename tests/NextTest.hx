@@ -40,18 +40,18 @@ class NextTest {
     return asserts.done();
   }
 
-  // public function testBlend() {
-  //   var a = Signal.trigger();
-  //   var b = Signal.trigger();
-  //   var compound = new SignalStream(a).blend(new SignalStream(b));
-  //   a.trigger(Data(1));
-  //   b.trigger(Data(2));
-  //   a.trigger(Data(3));
-  //   a.trigger(End);
-  //   b.trigger(End);
-  //   check(asserts, compound, [1,2,3]);
-  //   return asserts.done();
-  // }
+  public function testBlend() {
+    var a = Signal.trigger();
+    var b = Signal.trigger();
+    var compound = Stream.ofSignal(a).blend(Stream.ofSignal(b));
+    a.trigger(Data(1));
+    b.trigger(Data(2));
+    a.trigger(Data(3));
+    a.trigger(End);
+    b.trigger(End);
+    check(asserts, compound, [1,2,3]);
+    return asserts.done();
+  }
 
   function check<T>(asserts:AssertionBuffer, stream:Stream<T, Noise>, values:Array<T>, ?pos:haxe.PosInfos) {
     var current = stream;
